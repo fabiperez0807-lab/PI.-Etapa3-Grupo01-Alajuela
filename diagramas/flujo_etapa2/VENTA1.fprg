@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="VENTA1"/>
+        <attribute name="authors" value="Hillary"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-10-22 04:03:15 p.&#160;m."/>
+        <attribute name="created" value="SGlsbGFyeTtMQVBUT1AtRzZVMDk3S1M7MjAyNi0xMC0yMjswMjo0ODoxMyBwLsKgbS47MzM1NQ=="/>
+        <attribute name="edited" value="SGlsbGFyeTtMQVBUT1AtRzZVMDk3S1M7MjAyNi0xMC0yMjswMjo1NTo0NyBwLsKgbS47MjtHcnVwbzAxO0VRVUlQTzsyMDI2LTEwLTIwOzA1OjEwOjAwIFBNO3ZlbnRhLmZwcmc7Njk1OA=="/>
+        <attribute name="edited" value="SGlsbGFyeTtMQVBUT1AtRzZVMDk3S1M7MjAyNi0xMC0yMjswNDowMzoxNSBwLsKgbS47MTszNDU4"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="codigos" type="String" array="True" size="12"/>
+            <declare name="nombres" type="String" array="True" size="12"/>
+            <declare name="stocks" type="Integer" array="True" size="12"/>
+            <declare name="precios" type="Real" array="True" size="12"/>
+            <declare name="carrito" type="Integer" array="True" size="12"/>
+            <declare name="n" type="Integer" array="False" size=""/>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <declare name="idx" type="Integer" array="False" size=""/>
+            <declare name="cantidad" type="Integer" array="False" size=""/>
+            <declare name="lineas" type="Integer" array="False" size=""/>
+            <declare name="codigo" type="String" array="False" size=""/>
+            <declare name="confirma" type="String" array="False" size=""/>
+            <declare name="continuar" type="Boolean" array="False" size=""/>
+            <declare name="subtotal" type="Real" array="False" size=""/>
+            <declare name="impuesto" type="Real" array="False" size=""/>
+            <declare name="total" type="Real" array="False" size=""/>
+            <assign variable="n" expression="12"/>
+            <call expression="cargardatos(codigos, nombres, stocks, precios)"/>
+            <for variable="i" start="0" end="n - 1" direction="inc" step="1">
+                <assign variable="carrito[i]" expression="0"/>
+            </for>
+            <assign variable="lineas" expression="0"/>
+            <assign variable="continuar" expression="true"/>
+            <output expression="&quot;REALIZAR VENTA&quot;" newline="True"/>
+            <while expression="continuar == true">
+                <output expression="&quot;C&#243;digo del producto (ENTER para finalizar): &quot;" newline="False"/>
+                <input variable="codigo"/>
+                <if expression="codigo == &quot;&quot;">
+                    <then>
+                        <assign variable="continuar" expression="false"/>
+                    </then>
+                    <else>
+                        <assign variable="idx" expression="buscarindice(codigos, n, codigo)"/>
+                        <if expression="idx == -1">
+                            <then>
+                                <output expression="&quot;Error: el c&#243;digo ingresado no existe.&quot;" newline="True"/>
+                            </then>
+                            <else>
+                                <assign variable="cantidad" expression="0"/>
+                                <while expression="cantidad &lt;= 0">
+                                    <output expression="&quot;Cantidad: &quot;" newline="False"/>
+                                    <input variable="cantidad"/>
+                                    <if expression="cantidad &lt;= 0">
+                                        <then>
+                                            <output expression="&quot;Error: el valor debe ser mayor que 0.&quot;" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                </while>
+                                <if expression="stocks[idx] &gt;= carrito[idx] + cantidad">
+                                    <then>
+                                        <assign variable="carrito[idx]" expression="carrito[idx] + cantidad"/>
+                                        <assign variable="lineas" expression="lineas + 1"/>
+                                        <output expression="&quot;Agregado: &quot; &amp; cantidad &amp; &quot; x &quot; &amp; nombres[idx]" newline="True"/>
+                                    </then>
+                                    <else>
+                                        <output expression="&quot;Error: stock insuficiente de &quot; &amp; nombres[idx] &amp; &quot; (disponible: &quot; &amp; stocks[idx] &amp; &quot;, ya en la venta: &quot; &amp; carrito[idx] &amp; &quot;)&quot;" newline="True"/>
+                                    </else>
+                                </if>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+            </while>
+            <assign variable="subtotal" expression="0"/>
+        </body>
+    </function>
+    <function name="buscarindice" type="Integer" variable="idx">
+        <parameters>
+            <parameter name="codigos" type="String" array="True"/>
+            <parameter name="n" type="Integer" array="False"/>
+            <parameter name="codigo" type="String" array="False"/>
+        </parameters>
+        <body>
+            <declare name="idx" type="Integer" array="False" size=""/>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <assign variable="idx" expression="-1"/>
+            <for variable="i" start="0" end="n - 1" direction="inc" step="1">
+                <if expression="codigos[i]==codigo">
+                    <then>
+                        <assign variable="idx" expression="i"/>
+                    </then>
+                    <else/>
+                </if>
+            </for>
+        </body>
+    </function>
+    <function name="cargardatos" type="None" variable="">
+        <parameters>
+            <parameter name="codigos" type="String" array="True"/>
+            <parameter name="nombres" type="String" array="True"/>
+            <parameter name="stocks" type="Integer" array="True"/>
+            <parameter name="precios" type="Real" array="True"/>
+        </parameters>
+        <body>
+            <comment text="Carga el cat&#225;logo de ejemplo (datos/datos_prueba.cvs) en arreglos paralelos"/>
+            <assign variable="codigos[0]" expression="&quot;LAC001&quot;"/>
+            <assign variable="nombres[0]" expression="&quot;Leche entera 1L&quot;"/>
+            <assign variable="stocks[0]" expression="40"/>
+            <assign variable="precios[0]" expression="1100"/>
+            <assign variable="codigos[1]" expression="&quot;LAC002&quot;"/>
+            <assign variable="nombres[1]" expression="&quot;Yogurt natural 200g&quot;"/>
+            <assign variable="stocks[1]" expression="8"/>
+            <assign variable="precios[1]" expression="750"/>
+            <assign variable="codigos[2]" expression="&quot;LAC003&quot;"/>
+            <assign variable="nombres[2]" expression="&quot;Queso fresco 500g&quot;"/>
+            <assign variable="stocks[2]" expression="22"/>
+            <assign variable="precios[2]" expression="3600"/>
+            <assign variable="codigos[3]" expression="&quot;BEB001&quot;"/>
+            <assign variable="nombres[3]" expression="&quot;Agua purificada 600ml&quot;"/>
+            <assign variable="stocks[3]" expression="120"/>
+            <assign variable="precios[3]" expression="600"/>
+            <assign variable="codigos[4]" expression="&quot;BEB002&quot;"/>
+            <assign variable="nombres[4]" expression="&quot;Jugo de naranja 1L&quot;"/>
+            <assign variable="stocks[4]" expression="6"/>
+            <assign variable="precios[4]" expression="1600"/>
+            <assign variable="codigos[5]" expression="&quot;BEB003&quot;"/>
+            <assign variable="nombres[5]" expression="&quot;Gaseosa cola 2L&quot;"/>
+            <assign variable="stocks[5]" expression="35"/>
+            <assign variable="precios[5]" expression="1700"/>
+            <assign variable="codigos[6]" expression="&quot;ENL001&quot;"/>
+            <assign variable="nombres[6]" expression="&quot;At&#250;n en lata 140g&quot;"/>
+            <assign variable="stocks[6]" expression="60"/>
+            <assign variable="precios[6]" expression="1400"/>
+            <assign variable="codigos[7]" expression="&quot;ENL002&quot;"/>
+            <assign variable="nombres[7]" expression="&quot;Frijoles enlatados 400g&quot;"/>
+            <assign variable="stocks[7]" expression="14"/>
+            <assign variable="precios[7]" expression="1300"/>
+            <assign variable="codigos[8]" expression="&quot;ENL003&quot;"/>
+            <assign variable="nombres[8]" expression="&quot;Sardinas en lata 125g&quot;"/>
+            <assign variable="stocks[8]" expression="45"/>
+            <assign variable="precios[8]" expression="1000"/>
+            <assign variable="codigos[9]" expression="&quot;GRA001&quot;"/>
+            <assign variable="nombres[9]" expression="&quot;Arroz blanco 1kg&quot;"/>
+            <assign variable="stocks[9]" expression="80"/>
+            <assign variable="precios[9]" expression="1200"/>
+            <assign variable="codigos[10]" expression="&quot;GRA002&quot;"/>
+            <assign variable="nombres[10]" expression="&quot;Frijoles negros 1kg&quot;"/>
+            <assign variable="stocks[10]" expression="18"/>
+            <assign variable="precios[10]" expression="1500"/>
+            <assign variable="codigos[11]" expression="&quot;LIM001&quot;"/>
+            <assign variable="nombres[11]" expression="&quot;Detergente en polvo 1kg&quot;"/>
+            <assign variable="stocks[11]" expression="30"/>
+            <assign variable="precios[11]" expression="3300"/>
+        </body>
+    </function>
+</flowgorithm>

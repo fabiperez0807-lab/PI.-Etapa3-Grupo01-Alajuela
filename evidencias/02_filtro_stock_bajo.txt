@@ -1,0 +1,51 @@
+
+==============================================================================
+                  DISTRIBUIDORA INDUSTRIAL DEL PACÍFICO S.A.                  
+==============================================================================
+                        Sistema de inventario y ventas                        
+                        Fecha del sistema: 2026-10-19                         
+  Datos cargados: 12 productos y 40 facturas (opción 7: reporte de calidad)   
+
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: ¿Desea filtrar u ordenar el inventario? (s/n): (ENTER en cualquier pregunta = no aplicar ese criterio)
+Categoría (Bebidas, Enlatados, Granos, Limpieza, Lácteos): Precio de venta mínimo: Precio de venta máximo: Estado (disponible/bajo/agotado): Ordenar por (nombre/stock/precio): Orden (asc/desc): 
+==============================================================================
+                                  INVENTARIO                                  
+==============================================================================
+Código  Nombre                    Categoría   Stock  Mín   P.Venta Vence      
+------------------------------------------------------------------------------
+BEB002  Jugo de naranja 1L        Bebidas        6*   12  1,600.00 2027-02-15 
+LAC002  Yogurt natural 200g       Lácteos        8*   10    750.00 2026-10-30 
+ENL002  Frijoles enlatados 400g   Enlatados     14*   14  1,300.00 2028-01-10 
+GRA002  Frijoles negros 1kg       Granos        18*   20  1,500.00 -          
+------------------------------------------------------------------------------
+4 producto(s).  * = stock bajo   ! = marcado para revisión (opción 7)
+
+Presione ENTER para volver al menú...
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+Hasta pronto.

@@ -1,0 +1,109 @@
+
+==============================================================================
+                  DISTRIBUIDORA INDUSTRIAL DEL PACÍFICO S.A.                  
+==============================================================================
+                        Sistema de inventario y ventas                        
+                        Fecha del sistema: 2026-10-19                         
+   Datos cargados: 10 productos y 8 facturas (opción 7: reporte de calidad)   
+
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+==============================================================================
+                 REPORTE DE CALIDAD DE DATOS (carga inicial)                  
+==============================================================================
+
+Inventario:
+   Registros leídos:      12
+   Registros cargados:    10
+   Registros corregidos:  7
+   Registros descartados: 2
+   Registros marcados:    4
+   Duplicados detectados: 1
+   Aviso: Se guardó una copia del archivo original como inventario.csv.bak (en la carpeta de datos).
+   Detalle:
+      - Fila 3: BEB010 sin nombre; se usó 'SIN NOMBRE'.
+      - Fila 4: BEB011 sin categoría; se usó 'Sin categoría'.
+      - Fila 5: GRA010 stock vacío o inválido; se usó 0.
+      - Fila 6: GRA011 precio_compra vacío o inválido; se usó 0 y se marcó.
+      - Fila 7: ENL010 precio de venta menor al de compra; marcado para revisión.
+      - Fila 8: ENL011 stock negativo (-5); marcado para revisión.
+      - Fila 9: LAC001 duplicado; se consolidó el stock (+10).
+      - Fila 10: sin código de producto; se descartó.
+      - Fila 11: LIM010 stock vacío o inválido; se usó 0.
+      - Fila 12: BEB012 fecha de vencimiento inválida ('2026-13-45'); se dejó vacía.
+
+Ventas:
+   Registros leídos:      10
+   Registros cargados:    8
+   Registros corregidos:  2
+   Registros descartados: 2
+   Registros marcados:    3
+   Aviso: Se guardó una copia del archivo original como ventas.csv.bak (en la carpeta de datos).
+   Detalle:
+      - Fila 4: cantidad no positiva (-2); marcada y excluida de los totales.
+      - Fila 5: fecha faltante o inválida; marcada.
+      - Fila 6: importe faltante; se recalculó.
+      - Fila 7: el total no coincidía con subtotal + impuestos; se corrigió.
+      - Fila 8: sin número de factura o código de producto; se descartó.
+      - Fila 9: cantidad vacía o inválida; se descartó.
+      - Fila 11: sin subtotal, impuestos ni total; marcada y excluida.
+
+Presione ENTER para volver al menú...
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+==============================================================================
+                     ALERTAS DEL INVENTARIO — 2026-10-19                      
+==============================================================================
+Código  Tipo                 Mensaje
+------------------------------------------------------------------------------
+LAC001  vencimiento_proximo  Leche entera 1L: vence en 4 día(s).
+GRA010  stock_bajo           Arroz integral 1kg: stock 0 (mín. 10). Reponer ~20.
+GRA011  dato_atipico         Lentejas 500g: precio_compra faltante.
+ENL010  dato_atipico         Maíz dulce en lata: precio de venta menor al de compra.
+ENL011  stock_bajo           Atún en agua: stock -5 (mín. 10). Reponer ~25.
+ENL011  dato_atipico         Atún en agua: stock negativo.
+LIM010  stock_bajo           Cloro 1L: stock 0 (mín. 10). Reponer ~20.
+BEB012  dato_atipico         Café molido: fecha de vencimiento inválida.
+------------------------------------------------------------------------------
+8 alerta(s).
+
+Presione ENTER para volver al menú...
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+Hasta pronto.

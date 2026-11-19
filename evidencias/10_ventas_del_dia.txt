@@ -1,0 +1,85 @@
+
+==============================================================================
+                  DISTRIBUIDORA INDUSTRIAL DEL PACÍFICO S.A.                  
+==============================================================================
+                        Sistema de inventario y ventas                        
+                        Fecha del sistema: 2026-10-19                         
+  Datos cargados: 12 productos y 40 facturas (opción 7: reporte de calidad)   
+
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+==============================================================================
+                                REALIZAR VENTA                                
+==============================================================================
+Escriba el código de cada producto. Deje el código vacío (ENTER) para terminar.
+Código del producto: Cantidad de Arroz blanco 1kg (disponible: 80): Código del producto: 
+==============================================================================
+                             RESUMEN DE LA VENTA                              
+==============================================================================
+Código  Producto                     Cant.   P.Unit.    Subtotal
+------------------------------------------------------------------------------
+GRA001  Arroz blanco 1kg                 1  1,200.00    1,200.00
+------------------------------------------------------------------------------
+                                           Subtotal:    1,200.00
+                                    Impuesto (13 %):      156.00
+                                      TOTAL A PAGAR:    1,356.00
+
+¿Confirmar la venta? (s/n): [OK] Factura F-0041 registrada. Total: 1,356.00
+
+Stock actualizado:
+  GRA001 Arroz blanco 1kg: 80 -> 79
+
+Presione ENTER para volver al menú...
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+==============================================================================
+                         VENTAS DEL DÍA — 2026-10-19                          
+==============================================================================
+Factura   Fecha y hora          Líneas      Impuestos           Total
+------------------------------------------------------------------------------
+F-0041    2026-10-19 04:24:30        1         156.00        1,356.00
+------------------------------------------------------------------------------
+TOTAL VENDIDO:                                 156.00        1,356.00
+1 factura(s).  ! = tiene líneas marcadas que no se suman (opción 7)
+
+¿Desea ver también el historial completo? (s/n): 
+Presione ENTER para volver al menú...
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+Hasta pronto.

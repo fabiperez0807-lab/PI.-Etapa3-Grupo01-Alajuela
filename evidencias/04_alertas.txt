@@ -1,0 +1,52 @@
+
+==============================================================================
+                  DISTRIBUIDORA INDUSTRIAL DEL PACÍFICO S.A.                  
+==============================================================================
+                        Sistema de inventario y ventas                        
+                        Fecha del sistema: 2026-10-19                         
+  Datos cargados: 12 productos y 40 facturas (opción 7: reporte de calidad)   
+
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+==============================================================================
+                     ALERTAS DEL INVENTARIO — 2026-10-19                      
+==============================================================================
+Código  Tipo                 Mensaje
+------------------------------------------------------------------------------
+LAC001  vencimiento_proximo  Leche entera 1L: vence en 4 día(s).
+LAC002  stock_bajo           Yogurt natural 200g: stock 8 (mín. 10). Reponer ~12.
+LAC003  vencimiento_proximo  Queso fresco 500g: vence en 7 día(s).
+BEB002  stock_bajo           Jugo de naranja 1L: stock 6 (mín. 12). Reponer ~18.
+ENL002  stock_bajo           Frijoles enlatados 400g: stock 14 (mín. 14). Reponer ~14.
+GRA002  stock_bajo           Frijoles negros 1kg: stock 18 (mín. 20). Reponer ~22.
+------------------------------------------------------------------------------
+6 alerta(s).
+
+Presione ENTER para volver al menú...
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+Hasta pronto.

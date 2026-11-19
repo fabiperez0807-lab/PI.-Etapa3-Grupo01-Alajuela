@@ -1,0 +1,218 @@
+[
+  {
+    "id": "CP-01",
+    "descripcion": "Creación automática de archivos inexistentes",
+    "entrada": "Carpeta vacía (sin inventario.csv ni ventas.csv); se inicia el sistema.",
+    "esperado": "Se crean ambos archivos solo con los encabezados correctos y se cargan 0 productos y 0 facturas.",
+    "obtenido": "Encabezados: «codigo,nombre,categoria,stock,stock_minimo,precio_compra,precio_venta,fecha_vencimiento» y «numero_factura,fecha,codigo_producto,cantidad,subtotal,impuestos,total». Productos: 0, facturas: 0.",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-02",
+    "descripcion": "Carga inicial de los datos entregados (12 productos de la Etapa 2)",
+    "entrada": "datos/inventario.csv (12 productos) y datos/ventas.csv (40 facturas, 76 líneas); fecha del sistema 2026-10-19.",
+    "esperado": "Se cargan 12 productos y 40 facturas (76 líneas); el reporte de calidad indica 0 corregidos, 0 descartados y 0 marcados.",
+    "obtenido": "12 productos, 40 facturas (76 líneas). Calidad inventario: 0 corregidos, 0 descartados, 0 marcados.",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-03",
+    "descripcion": "Validación de entradas (validadores heredados de la Etapa 2)",
+    "entrada": "Entero: «», «abc», «3.5», «-3», «0», « 12 ». Decimal: «nan», «inf», «abc», «0», «1250,50». Fecha: «2026-13-45», «2026-02-30», «31/12/2026», «hoy», «», «2026-12-31».",
+    "esperado": "Se rechazan los valores vacíos, con letras, decimales donde va un entero, negativos, cero, nan/inf y fechas imposibles o mal escritas. Se aceptan 12, 1250.5, la fecha vacía y 2026-12-31.",
+    "obtenido": "Rechazados: 5/5 enteros, 4/4 decimales, 4/4 fechas. Aceptados: 12, 1250.5, fecha vacía y «2026-12-31».",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-04",
+    "descripcion": "Registrar producto con entradas inválidas y luego válidas",
+    "entrada": "Flujo de la opción 1: código repetido «lac001», código con espacio, stock «abc» y «0», precio de venta menor al de compra, fecha «31/12/2026»; luego datos correctos de PAP001.",
+    "esperado": "Se muestran 6 mensajes de error, se vuelve a preguntar cada dato y finalmente se registra PAP001 (categoría «Papelería», precio de venta 2200.50, stock 25).",
+    "obtenido": "6 mensajes de error. PAP001: «Cuaderno cuadriculado», categoría Papelería, stock 25, precio de venta 2200.5, vence 2028-12-31.",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-05",
+    "descripcion": "Persistencia entre ejecuciones (registrar, cerrar y volver a abrir)",
+    "entrada": "Se registra PAP001 «Piñata grande» desde el controlador, se reinicia por completo el estado en memoria y se vuelven a cargar los CSV.",
+    "esperado": "El producto aparece tras recargar, con tildes y ñ intactas, y inventario.csv tiene 13 filas.",
+    "obtenido": "Tras recargar: «Piñata grande», categoría Juguetería, stock 4. Filas en inventario.csv: 13.",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-06",
+    "descripcion": "Actualizar stock con entradas inválidas y persistencia",
+    "entrada": "Opción 2: código «ZZZ» (no existe); luego «beb002» con cantidades «texto», «0», «-3» y finalmente «24».",
+    "esperado": "Se muestran 4 errores; BEB002 pasa de 6 a 30 unidades y el cambio queda guardado en inventario.csv.",
+    "obtenido": "4 errores. Stock de BEB002 tras recargar el archivo: 30.",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-07",
+    "descripcion": "Venta exitosa con IVA, descuento de stock y persistencia (caso de la Etapa 2)",
+    "entrada": "Opción 3: 3 unidades de ENL001 (₡1 400 c/u) y 2 de LAC001 (₡1 100 c/u); confirmar con «s».",
+    "esperado": "Subtotal 6 400.00, IVA 13 % = 832.00, total 7 232.00. Factura F-0041. Stock ENL001 60→57 y LAC001 40→38. ventas.csv pasa de 76 a 78 líneas y todo persiste al recargar.",
+    "obtenido": "Factura F-0041: subtotal 6400.00, IVA 832.00, total 7232.00. Stock ENL001/LAC001: 57/38. Líneas en ventas.csv: 78. Tras recargar: stock ENL001 57, 41 facturas.",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-08",
+    "descripcion": "Ventas rechazadas o canceladas no modifican nada",
+    "entrada": "Producto inexistente «XXX999»; 10 unidades de BEB002 (stock 6); 4+4 unidades de BEB002 (dos veces); venta válida de 1 LAC001 con confirmación «n»; venta sin productos.",
+    "esperado": "Cada intento muestra su mensaje (no existe / stock insuficiente / cancelada) y al final el stock y las 76 líneas de ventas.csv siguen iguales.",
+    "obtenido": "Mensajes: «No existe el producto XXX999», «Stock insuficiente: disponible 6, solicitado 10», «disponible: 2» (el carrito suma lo ya pedido), «Venta cancelada». Stock y facturas antes (6, 40, 40), después (6, 40, 40).",
+    "estado": "Aprobado",
+    "nota": "En la primera ejecución este caso salió «Fallido» por un error de la propia prueba: la simulación de entradas no imprimía el texto de cada pregunta, donde aparece «disponible: 2», y la verificación no lo encontraba. El sistema funcionaba bien; se corrigió la simulación (ahora muestra pregunta y respuesta, como una terminal)."
+  },
+  {
+    "id": "CP-09",
+    "descripcion": "Alertas de stock bajo y vencimiento (caso de la Etapa 2)",
+    "entrada": "Inventario inicial con fecha del sistema 2026-10-19 (alerta de vencimiento a 7 días).",
+    "esperado": "6 alertas: stock bajo en LAC002, BEB002, ENL002 y GRA002; vencimiento próximo de LAC001 (4 días) y LAC003 (7 días).",
+    "obtenido": "6 alertas. Stock bajo: ['BEB002', 'ENL002', 'GRA002', 'LAC002']. Vencimiento próximo: ['LAC001', 'LAC003'].",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-10",
+    "descripcion": "Casos límite de las reglas de negocio",
+    "entrada": "Stock igual al mínimo (ENL002 14/14); vence en 7 días, en 8 días y ayer; cantidad igual al stock y una unidad más; stock sugerido de BEB002 y ENL002.",
+    "esperado": "Stock = mínimo es bajo. Vence en 7 días: sí alerta; en 8: no; ayer: sí. Cantidad = stock se permite y stock + 1 no. Sugerido: BEB002 18, ENL002 14.",
+    "obtenido": "stock=mín→bajo True; 7 días True; 8 días False; ayer True; sin fecha False; cantidad=stock True; stock+1 False; sugerido BEB002 18, ENL002 14.",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-11",
+    "descripcion": "Manejo de valores nulos o vacíos al cargar el inventario",
+    "entrada": "datos/pruebas/inventario.csv: BEB010 sin nombre, BEB011 sin categoría, GRA010 sin stock, GRA011 sin precio de compra.",
+    "esperado": "Se reemplazan por valores por defecto («SIN NOMBRE», «Sin categoría», stock 0, precio 0) y GRA011 queda marcado; todo se informa en el reporte.",
+    "obtenido": "BEB010 → «SIN NOMBRE»; BEB011 → «Sin categoría»; GRA010 stock → 0; GRA011 precio_compra → 0 con marcas ['precio_compra faltante'].",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-12",
+    "descripcion": "Detección y consolidación de duplicados por código",
+    "entrada": "datos/pruebas/inventario.csv: LAC001 aparece dos veces (stock 40 y 10).",
+    "esperado": "Queda un solo LAC001 con stock 50 y el reporte cuenta 1 duplicado. Con la opción «notificar» se conserva el primero (stock 40).",
+    "obtenido": "Consolidar: 1 registro LAC001 con stock 50; duplicados reportados: 1. Notificar: stock 40.",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-13",
+    "descripcion": "Validación de valores atípicos",
+    "entrada": "datos/pruebas: ENL010 con precio de venta (1200) menor al de compra (1500); ENL011 con stock -5; venta con cantidad -2.",
+    "esperado": "ENL010 y ENL011 quedan marcados para revisión (no se borran); la línea de venta con cantidad -2 queda excluida de los totales y genera una alerta «dato_atipico».",
+    "obtenido": "ENL010: ['precio de venta menor al de compra']. ENL011: ['stock negativo']. Línea con cantidad -2: válida=False. Alertas dato_atipico: ['BEB012', 'ENL010', 'ENL011', 'GRA011'].",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-14",
+    "descripcion": "Reporte de calidad de datos (conteos)",
+    "entrada": "Carga de datos/pruebas (12 filas de inventario, 10 de ventas).",
+    "esperado": "Inventario: 12 leídos, 10 cargados, 7 corregidos, 2 descartados, 4 marcados, 1 duplicado. Ventas: 10 leídas, 8 cargadas, 2 corregidas, 2 descartadas, 3 marcadas.",
+    "obtenido": "Inventario: 12 leídos, 10 cargados, 7 corregidos, 2 descartados, 4 marcados, 1 duplicado(s). Ventas: 10 leídas, 8 cargadas, 2 corregidas, 2 descartadas, 3 marcadas.",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-15",
+    "descripcion": "Respaldo del archivo original cuando la limpieza lo modifica",
+    "entrada": "Se carga datos/pruebas (con errores) dos veces y se registra un producto (el CSV se reescribe depurado).",
+    "esperado": "Se crea inventario.csv.bak idéntico al original; la segunda carga no lo sobrescribe y el CSV depurado queda distinto del respaldo.",
+    "obtenido": "inventario.csv.bak existe: True; idéntico al original tras 2 cargas: True; CSV depurado distinto: True.",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-16",
+    "descripcion": "Filtrado por categoría, rango de precio y estado de stock",
+    "entrada": "Inventario inicial: categoría «Lácteos»; precio de venta entre 1000 y 1500; estado «bajo»; estado «agotado»; «Enlatados» + «bajo».",
+    "esperado": "Lácteos: 3. Rango 1000-1500: 6 productos. Bajo: LAC002, BEB002, ENL002 y GRA002. Agotado: ninguno. Enlatados y bajo: ENL002.",
+    "obtenido": "Lácteos: 3. Rango 1000-1500: 6. Bajo: ['BEB002', 'ENL002', 'GRA002', 'LAC002']. Agotado: 0. Enlatados+bajo: ['ENL002'].",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-17",
+    "descripcion": "Ordenamiento por nombre, stock y precio (asc/desc)",
+    "entrada": "Inventario inicial ordenado por nombre asc, stock desc, precio asc y precio desc; campo inválido «color».",
+    "esperado": "Nombre ascendente (primero «Agua purificada 600ml»); stock descendente empieza en BEB001 (120); precio ascendente empieza en BEB001 (600) y termina en LAC003 (3 600); un campo inválido se rechaza.",
+    "obtenido": "Primer nombre «agua purificada 600ml». Mayor stock BEB001 (120). Precio: de BEB001 (600) a LAC003 (3600). Campo inválido rechazado: True.",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-18",
+    "descripcion": "Consulta de inventario con filtros desde el menú (opción 5)",
+    "entrada": "Entradas: filtrar «s», categoría «Lácteos», sin precios ni estado, ordenar por «precio» en «desc».",
+    "esperado": "Se listan los 3 lácteos del más caro al más barato: LAC003, LAC001, LAC002; LAC002 aparece con * (stock bajo).",
+    "obtenido": "Salida con 3 productos en el orden ['LAC003', 'LAC001', 'LAC002']; BEB001 no aparece; stock bajo marcado con *.",
+    "estado": "Aprobado",
+    "nota": "En la primera ejecución salió «Fallido» por un error de la prueba: buscaba el texto «8 *» pero la tabla imprime «8*» (el asterisco va pegado al stock). Se corrigió la verificación; el sistema era correcto."
+  },
+  {
+    "id": "CP-19",
+    "descripcion": "Ventas totales por categoría (base del gráfico)",
+    "entrada": "Ventas iniciales; se compara el cálculo del sistema con una suma independiente leída directamente de ventas.csv.",
+    "esperado": "La suma por categoría coincide con la suma manual y el total general coincide con la suma de la columna total.",
+    "obtenido": "5 categorías. Mayor: Enlatados (₡105,768.00). Total general ₡454,147.00 (suma manual ₡454,147.00).",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-20",
+    "descripcion": "Ventas del día con fecha simulada",
+    "entrada": "Fecha del sistema 2026-10-19: se consultan las ventas del día antes y después de vender; y las del 2026-10-18.",
+    "esperado": "Antes: 0 ventas. Después de una venta confirmada: 1 venta (F-0041, total 1 243.00). Las ventas del 2026-10-18 coinciden con el conteo independiente del CSV.",
+    "obtenido": "Antes 0; después 1 (F-0041, total 1,356.00). Ventas del 2026-10-18: 2 (esperadas 2).",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-21",
+    "descripcion": "Generación de gráficos con matplotlib",
+    "entrada": "Opción 8 «Generar reportes gráficos» con los datos iniciales, sin mostrar en pantalla.",
+    "esperado": "Se crean 4 archivos .png no vacíos: ventas por categoría, stock crítico, distribución por categoría y ventas por hora.",
+    "obtenido": "4 archivos: ventas_por_categoria.png (73 KB), stock_critico.png (62 KB), distribucion_categorias.png (72 KB), ventas_por_hora.png (41 KB)",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-22",
+    "descripcion": "Codificación UTF-8 y archivo en otra codificación",
+    "entrada": "Se escribe un inventario.csv en latin-1 con «Piñata» y «Café» y se carga el sistema.",
+    "esperado": "Se leen correctamente los caracteres especiales, se emite una advertencia y al guardar el archivo queda en UTF-8.",
+    "obtenido": "Leído: «Piñata», «Café». Advertencia emitida: True. Guardado en UTF-8 sin pérdida: True.",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-23",
+    "descripcion": "Arranque con fecha y carpeta de datos por argumento",
+    "entrada": "Argumentos «2026-10-19 --datos <carpeta>», fecha inválida «2026-13-45» y «19/10/2026».",
+    "esperado": "Los argumentos se interpretan bien; con fecha válida el sistema inicia (True) y con fecha inválida no inicia (False) y muestra un error.",
+    "obtenido": "Argumentos leídos: 2026-10-19 y carpeta indicada; sin argumentos: (None, None). Inicio con fecha válida: True; fechas inválidas: False, False.",
+    "estado": "Aprobado",
+    "nota": ""
+  },
+  {
+    "id": "CP-24",
+    "descripcion": "Separación de responsabilidades MVC (inspección automática del código fuente)",
+    "entrada": "Se analiza con el módulo ast el código de modelo/, vista/ y controlador/ en busca de print(), input(), open() e importaciones cruzadas.",
+    "esperado": "Modelo: sin print/input y sin importar vista ni controlador. Vista: sin importar modelo ni controlador. Controlador: sin print/input/open ni uso del módulo csv.",
+    "obtenido": "13 módulos analizados. Violaciones encontradas: ninguna.",
+    "estado": "Aprobado",
+    "nota": ""
+  }
+]

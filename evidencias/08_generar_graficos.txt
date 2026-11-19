@@ -1,0 +1,48 @@
+
+==============================================================================
+                  DISTRIBUIDORA INDUSTRIAL DEL PACÍFICO S.A.                  
+==============================================================================
+                        Sistema de inventario y ventas                        
+                        Fecha del sistema: 2026-10-19                         
+  Datos cargados: 12 productos y 40 facturas (opción 7: reporte de calidad)   
+
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+==============================================================================
+                              REPORTES GRÁFICOS                               
+==============================================================================
+¿Mostrar los gráficos en pantalla? (s/n): 
+Gráficos guardados en:
+   /home/claude/PI_Etapa3/codigo/reportes_graficos/ventas_por_categoria.png
+   /home/claude/PI_Etapa3/codigo/reportes_graficos/stock_critico.png
+   /home/claude/PI_Etapa3/codigo/reportes_graficos/distribucion_categorias.png
+   /home/claude/PI_Etapa3/codigo/reportes_graficos/ventas_por_hora.png
+
+Presione ENTER para volver al menú...
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+Hasta pronto.

@@ -1,0 +1,86 @@
+
+==============================================================================
+                  DISTRIBUIDORA INDUSTRIAL DEL PACÍFICO S.A.                  
+==============================================================================
+                        Sistema de inventario y ventas                        
+                        Fecha del sistema: 2026-10-19                         
+  Datos cargados: 12 productos y 40 facturas (opción 7: reporte de calidad)   
+
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+==============================================================================
+                              REGISTRAR PRODUCTO                              
+==============================================================================
+(Escriba los datos solicitados. Cada dato se valida.)
+Código del producto: [ERROR] Ya existe un producto con el código LAC001.
+Código del producto: [ERROR] El código no puede contener espacios.
+Código del producto: Nombre: Categoría: Stock inicial: [ERROR] Debe ingresar un número entero (sin decimales ni letras).
+Stock inicial: [ERROR] El valor debe ser mayor que cero.
+Stock inicial: Stock mínimo: Precio de compra: Precio de venta: [ERROR] El precio de venta no puede ser menor al precio de compra.
+Precio de venta: Fecha de vencimiento AAAA-MM-DD (ENTER si no aplica): [ERROR] Fecha inválida. Use el formato AAAA-MM-DD (por ejemplo 2026-12-31) o deje vacío.
+Fecha de vencimiento AAAA-MM-DD (ENTER si no aplica): [OK] Producto PAP001 registrado correctamente.
+
+Presione ENTER para volver al menú...
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: ¿Desea filtrar u ordenar el inventario? (s/n): 
+==============================================================================
+                                  INVENTARIO                                  
+==============================================================================
+Código  Nombre                    Categoría   Stock  Mín   P.Venta Vence      
+------------------------------------------------------------------------------
+LAC001  Leche entera 1L           Lácteos       40    15  1,100.00 2026-10-23 
+LAC002  Yogurt natural 200g       Lácteos        8*   10    750.00 2026-10-30 
+LAC003  Queso fresco 500g         Lácteos       22     8  3,600.00 2026-10-26 
+BEB001  Agua purificada 600ml     Bebidas      120    40    600.00 -          
+BEB002  Jugo de naranja 1L        Bebidas        6*   12  1,600.00 2027-02-15 
+BEB003  Gaseosa cola 2L           Bebidas       35    15  1,700.00 2027-06-30 
+ENL001  Atún en lata 140g         Enlatados     60    20  1,400.00 2028-05-01 
+ENL002  Frijoles enlatados 400g   Enlatados     14*   14  1,300.00 2028-01-10 
+ENL003  Sardinas en lata 125g     Enlatados     45    15  1,000.00 2028-03-20 
+GRA001  Arroz blanco 1kg          Granos        80    25  1,200.00 -          
+GRA002  Frijoles negros 1kg       Granos        18*   20  1,500.00 -          
+LIM001  Detergente en polvo 1kg   Limpieza      30    10  3,300.00 -          
+PAP001  Cuaderno cuadriculado     Papelería     25    10  2,200.50 2028-12-31 
+------------------------------------------------------------------------------
+13 producto(s).  * = stock bajo   ! = marcado para revisión (opción 7)
+
+Presione ENTER para volver al menú...
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+Hasta pronto.

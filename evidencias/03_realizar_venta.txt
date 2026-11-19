@@ -1,0 +1,61 @@
+
+==============================================================================
+                  DISTRIBUIDORA INDUSTRIAL DEL PACÍFICO S.A.                  
+==============================================================================
+                        Sistema de inventario y ventas                        
+                        Fecha del sistema: 2026-10-19                         
+  Datos cargados: 12 productos y 40 facturas (opción 7: reporte de calidad)   
+
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+==============================================================================
+                                REALIZAR VENTA                                
+==============================================================================
+Escriba el código de cada producto. Deje el código vacío (ENTER) para terminar.
+Código del producto: Cantidad de Atún en lata 140g (disponible: 60): Código del producto: Cantidad de Leche entera 1L (disponible: 40): Código del producto: 
+==============================================================================
+                             RESUMEN DE LA VENTA                              
+==============================================================================
+Código  Producto                     Cant.   P.Unit.    Subtotal
+------------------------------------------------------------------------------
+ENL001  Atún en lata 140g                3  1,400.00    4,200.00
+LAC001  Leche entera 1L                  2  1,100.00    2,200.00
+------------------------------------------------------------------------------
+                                           Subtotal:    6,400.00
+                                    Impuesto (13 %):      832.00
+                                      TOTAL A PAGAR:    7,232.00
+
+¿Confirmar la venta? (s/n): [OK] Factura F-0041 registrada. Total: 7,232.00
+
+Stock actualizado:
+  ENL001 Atún en lata 140g: 60 -> 57
+  LAC001 Leche entera 1L: 40 -> 38
+
+Presione ENTER para volver al menú...
+==============================================================================
+                                MENÚ PRINCIPAL                                
+==============================================================================
+  1. Registrar producto
+  2. Actualizar stock
+  3. Realizar venta
+  4. Generar alertas
+  5. Consultar inventario (filtrar y ordenar)
+  6. Consultar ventas
+  7. Reporte de calidad de datos
+  8. Generar reportes gráficos
+  0. Salir
+
+Seleccione una opción: 
+Hasta pronto.

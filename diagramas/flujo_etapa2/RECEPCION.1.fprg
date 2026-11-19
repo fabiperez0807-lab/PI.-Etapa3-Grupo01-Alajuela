@@ -1,0 +1,389 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="RECEPCION"/>
+        <attribute name="authors" value="Hillary"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-10-20 10:34:47 p.&#160;m."/>
+        <attribute name="created" value="SGlsbGFyeTtMQVBUT1AtRzZVMDk3S1M7MjAyNi0xMC0yMDswNToyNzo0OSBwLsKgbS47MzM2Mg=="/>
+        <attribute name="edited" value="SGlsbGFyeTtMQVBUT1AtRzZVMDk3S1M7MjAyNi0xMC0yMDswOTo0NToxOSBwLsKgbS47MztHcnVwbzAxO0VRVUlQTzsyMDI2LTEwLTIwOzA1OjEwOjAwIFBNO3JlY2VwY2lvbi5mcHJnOzczNzI="/>
+        <attribute name="edited" value="SGlsbGFyeTtMQVBUT1AtRzZVMDk3S1M7MjAyNi0xMC0yMDsxMDozNDo0NyBwLsKgbS47NTszNDY2"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="codigos" type="String" array="True" size="100"/>
+            <declare name="nombres" type="String" array="True" size="100"/>
+            <declare name="categorias" type="String" array="True" size="100"/>
+            <declare name="vencimientos" type="String" array="True" size="100"/>
+            <declare name="stocks" type="Integer" array="True" size="100"/>
+            <declare name="minimos" type="Integer" array="True" size="100"/>
+            <declare name="preciosCompra" type="Real" array="True" size="100"/>
+            <declare name="preciosVenta" type="Real" array="True" size="100"/>
+            <declare name="n" type="Integer" array="False" size=""/>
+            <declare name="opcion" type="Integer" array="False" size=""/>
+            <assign variable="n" expression="12"/>
+            <call expression="cargardatos(codigos,nombres,categorias,stocks,minimos,preciosCompra,preciosVenta,vencimientos)"/>
+            <assign variable="opcion" expression="-1"/>
+            <while expression="opcion!=0">
+                <output expression="&quot;1.Registrar producto&quot;" newline="True"/>
+                <output expression="&quot;2.Actualizar stock&quot;" newline="True"/>
+                <output expression="&quot;0.Salir&quot;" newline="True"/>
+                <output expression="&quot;Seleccione una opcion:&quot;" newline="False"/>
+                <input variable="opcion"/>
+                <if expression="opcion==1">
+                    <then>
+                        <assign variable="n" expression="registrarproductos(codigos,nombres,categorias,stocks,minimos,preciosCompra,preciosVenta,vencimientos,n)"/>
+                    </then>
+                    <else>
+                        <if expression="opcion==2">
+                            <then>
+                                <call expression="actualizarstock(codigos,nombres,stocks,n)"/>
+                            </then>
+                            <else>
+                                <if expression="opcion!=0">
+                                    <then>
+                                        <output expression="&quot;Error:opcion no valida.&quot;" newline="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+            </while>
+            <output expression="&quot;Sesi&#243;n finalizada.&quot;" newline="True"/>
+        </body>
+    </function>
+    <function name="actualizarstock" type="None" variable="">
+        <parameters>
+            <parameter name="codigos" type="String" array="True"/>
+            <parameter name="nombres" type="String" array="True"/>
+            <parameter name="stocks" type="Integer" array="True"/>
+            <parameter name="n" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="codigo" type="String" array="False" size=""/>
+            <declare name="idx" type="Integer" array="False" size=""/>
+            <declare name="cantidad" type="Integer" array="False" size=""/>
+            <declare name="anterior" type="Integer" array="False" size=""/>
+            <declare name="codigoValido" type="Boolean" array="False" size=""/>
+            <declare name="cancelado" type="Boolean" array="False" size=""/>
+            <assign variable="codigoValido" expression="false"/>
+            <assign variable="idx" expression="-1"/>
+            <output expression="&quot;ACTUALIZAR STOCK&quot;" newline="True"/>
+            <assign variable="cancelado" expression="false"/>
+            <while expression="codigoValido == false &amp;&amp; cancelado == false">
+                <output expression="&quot;Codigo del producto (ENTER para cancelar):&quot;" newline="False"/>
+                <input variable="codigo"/>
+                <if expression="codigo==&quot;&quot;">
+                    <then>
+                        <assign variable="cancelado" expression="true"/>
+                        <output expression="&quot;Operacion cancelada&quot;" newline="True"/>
+                    </then>
+                    <else>
+                        <assign variable="idx" expression="buscarindice(codigos,n,codigo)"/>
+                        <if expression="idx==-1">
+                            <then>
+                                <output expression="&quot;Error:el codigo ingresado no existe.&quot;" newline="True"/>
+                            </then>
+                            <else>
+                                <assign variable="codigoValido" expression="true"/>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+            </while>
+            <if expression="cancelado==false">
+                <then>
+                    <output expression="nombres[idx]&amp;&quot; &#8212; stock actual:&quot; &amp; stocks[idx]" newline="True"/>
+                    <assign variable="cantidad" expression="0"/>
+                    <while expression="cantidad&lt;=0">
+                        <output expression="&quot;Cantidad a agregar:&quot;" newline="False"/>
+                        <input variable="cantidad"/>
+                        <if expression="cantidad&lt;=0">
+                            <then>
+                                <output expression="&quot;Error:el valor debe ser mayor que 0.&quot;" newline="True"/>
+                            </then>
+                            <else/>
+                        </if>
+                    </while>
+                    <assign variable="anterior" expression="stocks[idx]"/>
+                    <assign variable="stocks[idx]" expression="stocks[idx]+cantidad"/>
+                    <output expression="&quot;Stock actualizado: &quot; &amp; anterior &amp; &quot; -&gt; &quot; &amp; stocks[idx]" newline="True"/>
+                </then>
+                <else/>
+            </if>
+        </body>
+    </function>
+    <function name="buscarindice" type="Integer" variable="idx">
+        <parameters>
+            <parameter name="codigos" type="String" array="True"/>
+            <parameter name="n" type="Integer" array="False"/>
+            <parameter name="codigo" type="String" array="False"/>
+        </parameters>
+        <body>
+            <comment text="Equivale a modelo.buscar_producto:devuelve la posicion del codigo o -1 si no existe"/>
+            <declare name="idx" type="Integer" array="False" size=""/>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <assign variable="idx" expression="-1"/>
+            <for variable="i" start="0" end="n - 1" direction="inc" step="1">
+                <if expression="codigos[i]==codigo">
+                    <then>
+                        <assign variable="idx" expression="i"/>
+                    </then>
+                    <else/>
+                </if>
+            </for>
+        </body>
+    </function>
+    <function name="cargardatos" type="None" variable="">
+        <parameters>
+            <parameter name="codigos" type="String" array="True"/>
+            <parameter name="nombres" type="String" array="True"/>
+            <parameter name="categorias" type="String" array="True"/>
+            <parameter name="stocks" type="Integer" array="True"/>
+            <parameter name="minimos" type="Integer" array="True"/>
+            <parameter name="preciosCompra" type="Real" array="True"/>
+            <parameter name="preciosVenta" type="Real" array="True"/>
+            <parameter name="vencimientos" type="String" array="True"/>
+        </parameters>
+        <body>
+            <comment text="Carga el cat&#225;logo de ejemplo (datos/datos_prueba.csv) en arreglos paralelos"/>
+            <assign variable="codigos[0]" expression="&quot;LAC001&quot;"/>
+            <assign variable="nombres[0]" expression="&quot;Leche entera 1L&quot;"/>
+            <assign variable="categorias[0]" expression="&quot;Lacteos&quot;"/>
+            <assign variable="stocks[0]" expression="40"/>
+            <assign variable="minimos[0]" expression="15"/>
+            <assign variable="preciosCompra[0]" expression="800"/>
+            <assign variable="preciosVenta[0]" expression="1100"/>
+            <assign variable="vencimientos[0]" expression="&quot;2026-10-23&quot;"/>
+            <assign variable="codigos[1]" expression="&quot;LAC002&quot;"/>
+            <assign variable="nombres[1]" expression="&quot;Yogurt natural 200g&quot;"/>
+            <assign variable="categorias[1]" expression="&quot;Lacteos&quot;"/>
+            <assign variable="stocks[1]" expression="8"/>
+            <assign variable="minimos[1]" expression="10"/>
+            <assign variable="preciosCompra[1]" expression="500"/>
+            <assign variable="preciosVenta[1]" expression="750"/>
+            <assign variable="vencimientos[1]" expression="&quot;2026-10-30&quot;"/>
+            <assign variable="codigos[2]" expression="&quot;LAC003&quot;"/>
+            <assign variable="nombres[2]" expression="&quot;Queso fresco 500g&quot;"/>
+            <assign variable="categorias[2]" expression="&quot;Lacteos&quot;"/>
+            <assign variable="stocks[2]" expression="22"/>
+            <assign variable="minimos[2]" expression="8"/>
+            <assign variable="preciosCompra[2]" expression="2800"/>
+            <assign variable="preciosVenta[2]" expression="3600"/>
+            <assign variable="vencimientos[2]" expression="&quot;2026-10-26&quot;"/>
+            <assign variable="codigos[3]" expression="&quot;BEB001&quot;"/>
+            <assign variable="nombres[3]" expression="&quot;Agua purificada 600ml&quot;"/>
+            <assign variable="categorias[3]" expression="&quot;Bebidas&quot;"/>
+            <assign variable="stocks[3]" expression="120"/>
+            <assign variable="minimos[3]" expression="40"/>
+            <assign variable="preciosCompra[3]" expression="350"/>
+            <assign variable="preciosVenta[3]" expression="600"/>
+            <assign variable="vencimientos[3]" expression="&quot;&quot;"/>
+            <assign variable="codigos[4]" expression="&quot;BEB002&quot;"/>
+            <assign variable="nombres[4]" expression="&quot;Jugo de naranja 1L&quot;"/>
+            <assign variable="categorias[4]" expression="&quot;Bebidas&quot;"/>
+            <assign variable="stocks[4]" expression="6"/>
+            <assign variable="minimos[4]" expression="12"/>
+            <assign variable="preciosCompra[4]" expression="1100"/>
+            <assign variable="preciosVenta[4]" expression="1600"/>
+            <assign variable="vencimientos[4]" expression="&quot;2027-02-15&quot;"/>
+            <assign variable="codigos[5]" expression="&quot;BEB003&quot;"/>
+            <assign variable="nombres[5]" expression="&quot;Gaseosa cola 2L&quot;"/>
+            <assign variable="categorias[5]" expression="&quot;Bebidas&quot;"/>
+            <assign variable="stocks[5]" expression="35"/>
+            <assign variable="minimos[5]" expression="15"/>
+            <assign variable="preciosCompra[5]" expression="1200"/>
+            <assign variable="preciosVenta[5]" expression="1700"/>
+            <assign variable="vencimientos[5]" expression="&quot;2027-06-30&quot;"/>
+            <assign variable="codigos[6]" expression="&quot;ENL001&quot;"/>
+            <assign variable="nombres[6]" expression="&quot;Atun en lata 140g&quot;"/>
+            <assign variable="categorias[6]" expression="&quot;Enlatados&quot;"/>
+            <assign variable="stocks[6]" expression="60"/>
+            <assign variable="minimos[6]" expression="20"/>
+            <assign variable="preciosCompra[6]" expression="1000"/>
+            <assign variable="preciosVenta[6]" expression="1400"/>
+            <assign variable="vencimientos[6]" expression="&quot;2028-05-01&quot;"/>
+            <assign variable="codigos[7]" expression="&quot;ENL002&quot;"/>
+            <assign variable="nombres[7]" expression="&quot;Frijoles enlatados 400g&quot;"/>
+            <assign variable="categorias[7]" expression="&quot;Enlatados&quot;"/>
+            <assign variable="stocks[7]" expression="14"/>
+            <assign variable="preciosCompra[7]" expression="900"/>
+            <assign variable="preciosVenta[7]" expression="1300"/>
+            <assign variable="vencimientos[7]" expression="&quot;2028-01-10&quot;"/>
+            <assign variable="codigos[8]" expression="&quot;Sardinas en lata 125g&quot;"/>
+            <assign variable="categorias[8]" expression="&quot;Entalados&quot;"/>
+            <assign variable="stocks[8]" expression="45"/>
+            <assign variable="minimos[8]" expression="15"/>
+            <assign variable="preciosCompra[8]" expression="700"/>
+            <assign variable="preciosVenta[8]" expression="1000"/>
+            <assign variable="vencimientos[8]" expression="&quot;2028-03-20&quot;"/>
+            <assign variable="codigos[9]" expression="&quot;GRA001&quot;"/>
+            <assign variable="nombres[9]" expression="&quot;Arroz blanco 1kg&quot;"/>
+            <assign variable="categorias[9]" expression="&quot;Granos&quot;"/>
+            <assign variable="stocks[9]" expression="80"/>
+            <assign variable="minimos[9]" expression="25"/>
+            <assign variable="preciosCompra[9]" expression="900"/>
+            <assign variable="preciosVenta[9]" expression="1200"/>
+            <assign variable="vencimientos[9]" expression="&quot;&quot;"/>
+            <assign variable="codigos[10]" expression="&quot;GRA002&quot;"/>
+            <assign variable="nombres[10]" expression="&quot;Frijoles negros 1kg&quot;"/>
+            <assign variable="categorias[10]" expression="&quot;Granos&quot;"/>
+            <assign variable="stocks[10]" expression="18"/>
+            <assign variable="minimos[10]" expression="20"/>
+            <assign variable="preciosCompra[10]" expression="1100"/>
+            <assign variable="preciosVenta[10]" expression="1500"/>
+            <assign variable="vencimientos[10]" expression="&quot;&quot;"/>
+            <assign variable="codigos[11]" expression="&quot;LIM001&quot;"/>
+            <assign variable="nombres[11]" expression="&quot;Detergente en polvo 1kg&quot;"/>
+            <assign variable="categorias[11]" expression="&quot;Limpieza&quot;"/>
+            <assign variable="stocks[11]" expression="30"/>
+            <assign variable="minimos[11]" expression="10"/>
+            <assign variable="preciosCompra[11]" expression="2500"/>
+            <assign variable="preciosVenta[11]" expression="3300"/>
+            <assign variable="vencimientos[11]" expression="&quot;&quot;"/>
+        </body>
+    </function>
+    <function name="registrarproductos" type="Integer" variable="nuevoN">
+        <parameters>
+            <parameter name="codigos" type="String" array="True"/>
+            <parameter name="nombres" type="String" array="True"/>
+            <parameter name="categorias" type="String" array="True"/>
+            <parameter name="stocks" type="Integer" array="True"/>
+            <parameter name="minimos" type="Integer" array="True"/>
+            <parameter name="preciosCompra" type="Real" array="True"/>
+            <parameter name="preciosVenta" type="Real" array="True"/>
+            <parameter name="vencimientos" type="String" array="True"/>
+            <parameter name="n" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="nuevoN" type="Integer" array="False" size=""/>
+            <declare name="idx" type="Integer" array="False" size=""/>
+            <declare name="codigo" type="String" array="False" size=""/>
+            <declare name="nombre" type="String" array="False" size=""/>
+            <declare name="categoria" type="String" array="False" size=""/>
+            <declare name="vence" type="String" array="False" size=""/>
+            <declare name="stock" type="Integer" array="False" size=""/>
+            <declare name="minimo" type="Integer" array="False" size=""/>
+            <declare name="compra" type="Real" array="False" size=""/>
+            <declare name="venta" type="Real" array="False" size=""/>
+            <declare name="codigoValido" type="Boolean" array="False" size=""/>
+            <declare name="fechaValida" type="Boolean" array="False" size=""/>
+            <assign variable="nuevoN" expression="0"/>
+            <output expression="&quot;REGISTRAR PRODUCTO&quot;" newline="True"/>
+            <assign variable="codigoValido" expression="false"/>
+            <while expression="codigoValido == false">
+                <output expression="&quot;C&#243;digo del producto: &quot;" newline="False"/>
+                <input variable="codigo"/>
+                <if expression="codigo == &quot;&quot;">
+                    <then>
+                        <output expression="&quot;Error: este campo es obligatorio y no puede quedar vac&#237;o.&quot;" newline="True"/>
+                    </then>
+                    <else>
+                        <assign variable="idx" expression="buscarindice(codigos, n, codigo)"/>
+                        <if expression="idx != -1">
+                            <then>
+                                <output expression="&quot;Error: el c&#243;digo &quot; &amp; codigo &amp; &quot; ya existe en el cat&#225;logo.&quot;" newline="True"/>
+                            </then>
+                            <else>
+                                <assign variable="codigoValido" expression="true"/>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+            </while>
+            <assign variable="nombre" expression="&quot;&quot;"/>
+            <while expression="nombre == &quot;&quot;">
+                <output expression="&quot;Nombre: &quot;" newline="False"/>
+                <input variable="nombre"/>
+                <if expression="nombre == &quot;&quot;">
+                    <then>
+                        <output expression="&quot;Error: este campo es obligatorio y no puede quedar vac&#237;o.&quot;" newline="True"/>
+                    </then>
+                    <else/>
+                </if>
+            </while>
+            <assign variable="categoria" expression="&quot;&quot;"/>
+            <while expression="categoria == &quot;&quot;">
+                <output expression="&quot;Categor&#237;a: &quot;" newline="False"/>
+                <input variable="categoria"/>
+                <if expression="categoria == &quot;&quot;">
+                    <then>
+                        <output expression="&quot;Error: este campo es obligatorio y no puede quedar vac&#237;o.&quot;" newline="True"/>
+                    </then>
+                    <else/>
+                </if>
+            </while>
+            <assign variable="stock" expression="0"/>
+            <while expression="stock &lt;= 0">
+                <output expression="&quot;Stock inicial (unidades): &quot;" newline="False"/>
+                <input variable="stock"/>
+                <if expression="stock &lt;= 0">
+                    <then>
+                        <output expression="&quot;Error: el valor debe ser mayor que 0.&quot;" newline="True"/>
+                    </then>
+                    <else/>
+                </if>
+            </while>
+            <assign variable="minimo" expression="0"/>
+            <while expression="minimo &lt;= 0">
+                <output expression="&quot;Stock m&#237;nimo (unidades): &quot;" newline="False"/>
+                <input variable="minimo"/>
+                <if expression="minimo &lt;= 0">
+                    <then>
+                        <output expression="&quot;Error: el valor debe ser mayor que 0.&quot;" newline="True"/>
+                    </then>
+                    <else/>
+                </if>
+            </while>
+            <assign variable="compra" expression="0"/>
+            <while expression="compra &lt;= 0">
+                <output expression="&quot;Precio de compra: &quot;" newline="False"/>
+                <input variable="compra"/>
+                <if expression="compra &lt;= 0">
+                    <then>
+                        <output expression="&quot;Error: el valor debe ser mayor que 0.&quot;" newline="True"/>
+                    </then>
+                    <else/>
+                </if>
+            </while>
+            <assign variable="venta" expression="0"/>
+            <while expression="venta &lt;= 0">
+                <output expression="&quot;Precio de venta: &quot;" newline="False"/>
+                <input variable="venta"/>
+                <if expression="venta &lt;= 0">
+                    <then>
+                        <output expression="&quot;Error: el valor debe ser mayor que 0.&quot;" newline="True"/>
+                    </then>
+                    <else/>
+                </if>
+            </while>
+            <assign variable="fechaValida" expression="false"/>
+            <comment text="Python valida adem&#225;s que sea una fecha real; aqu&#237; se comprueba el formato por longitud"/>
+            <while expression="fechaValida == false">
+                <output expression="&quot;Fecha de vencimiento YYYY-MM-DD (ENTER si no aplica): &quot;" newline="False"/>
+                <input variable="vence"/>
+                <if expression="vence == &quot;&quot; || Len(vence) == 10">
+                    <then>
+                        <assign variable="fechaValida" expression="true"/>
+                    </then>
+                    <else>
+                        <output expression="&quot;Error: formato inv&#225;lido. Use YYYY-MM-DD (por ejemplo 2026-12-31).&quot;" newline="True"/>
+                    </else>
+                </if>
+            </while>
+            <assign variable="codigos[n]" expression="codigo"/>
+            <assign variable="nombres[n]" expression="nombre"/>
+            <assign variable="categorias[n]" expression="categoria"/>
+            <assign variable="stocks[n]" expression="stock"/>
+            <assign variable="minimos[n]" expression="minimo"/>
+            <assign variable="preciosCompra[n]" expression="compra"/>
+            <assign variable="preciosVenta[n]" expression="venta"/>
+            <assign variable="vencimientos[n]" expression="vence"/>
+            <assign variable="nuevoN" expression="n + 1"/>
+            <output expression="&quot;Producto registrado exitosamente&quot;" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>

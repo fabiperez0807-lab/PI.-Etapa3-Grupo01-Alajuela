@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="ALERTAS1"/>
+        <attribute name="authors" value="Hillary"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-10-22 02:35:56 p.&#160;m."/>
+        <attribute name="created" value="SGlsbGFyeTtMQVBUT1AtRzZVMDk3S1M7MjAyNi0xMC0yMjswMjowNTozNCBwLsKgbS47MzM1MQ=="/>
+        <attribute name="edited" value="SGlsbGFyeTtMQVBUT1AtRzZVMDk3S1M7MjAyNi0xMC0yMjswMjozMjoxMiBwLsKgbS47MTtHcnVwbzAxO0VRVUlQTzsyMDI2LTEwLTIwOzA1OjEwOjAwIFBNO2FsZXJ0YXMuZnByZzs3MTUw"/>
+        <attribute name="edited" value="SGlsbGFyeTtMQVBUT1AtRzZVMDk3S1M7MjAyNi0xMC0yMjswMjozNTo1NiBwLsKgbS47MTszNDY2"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="codigos" type="String" array="True" size="12"/>
+            <declare name="nombres" type="String" array="True" size="12"/>
+            <declare name="stocks" type="Integer" array="True" size="12"/>
+            <declare name="minimos" type="Integer" array="True" size="12"/>
+            <declare name="perecedero" type="Boolean" array="True" size="12"/>
+            <declare name="dias" type="Integer" array="True" size="12"/>
+            <declare name="n" type="Integer" array="False" size=""/>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <declare name="sugerido" type="Integer" array="False" size=""/>
+            <declare name="totalAlertas" type="Integer" array="False" size=""/>
+            <declare name="mensaje" type="String" array="False" size=""/>
+            <assign variable="n" expression="12"/>
+            <call expression="cargardatos(codigos,nombres,stocks,minimos,perecedero,dias)"/>
+            <assign variable="totalAlertas" expression="0"/>
+            <output expression="&quot;ALERTAS GENERADAS&quot;" newline="True"/>
+            <for variable="I" start="0" end="n - 1" direction="inc" step="1">
+                <if expression="stocks[i]&lt;=minimos[i]">
+                    <then>
+                        <assign variable="sugerido" expression="minimos[i] * 2 - stocks[i]"/>
+                        <if expression="sugerido&lt;1">
+                            <then>
+                                <assign variable="sugerido" expression="1"/>
+                            </then>
+                            <else/>
+                        </if>
+                        <output expression="codigos[i] &amp; &quot; stock_bajo: stock &quot; &amp; stocks[i] &amp; &quot; &lt;= m&#237;nimo &quot; &amp; minimos[i] &amp; &quot; (reponer ~&quot; &amp; sugerido &amp; &quot;)&quot;" newline="True"/>
+                        <assign variable="totalAlertas" expression="totalAlertas + 1"/>
+                    </then>
+                    <else/>
+                </if>
+                <if expression="perecedero[i] == true &amp;&amp; dias[i] &lt;= 7">
+                    <then>
+                        <if expression="dias[i]&lt;0">
+                            <then>
+                                <assign variable="mensaje" expression="&quot;VENCIDO hace &quot; &amp; (0 - dias[i]) &amp; &quot; d&#237;a(s)&quot;"/>
+                            </then>
+                            <else>
+                                <if expression="dias[i]==0">
+                                    <then>
+                                        <assign variable="mensaje" expression="&quot;Vence HOY&quot;"/>
+                                    </then>
+                                    <else>
+                                        <assign variable="mensaje" expression="&quot;Vence en &quot; &amp; dias[i] &amp; &quot; d&#237;a(s)&quot;"/>
+                                    </else>
+                                </if>
+                            </else>
+                        </if>
+                        <output expression="codigos[i] &amp; &quot;vencimiento proximo: &quot; &amp; mensaje" newline="True"/>
+                        <assign variable="totalAlertas" expression="totalAlertas + 1"/>
+                    </then>
+                    <else/>
+                </if>
+            </for>
+            <if expression="totalAlertas==0">
+                <then>
+                    <output expression="&quot;No hay alertas:al inventario est&#225; en orden&quot;" newline="True"/>
+                </then>
+                <else>
+                    <output expression="&quot;Total de alertas:&quot; &amp; totalAlertas" newline="True"/>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="cargardatos" type="None" variable="">
+        <parameters>
+            <parameter name="codigos" type="String" array="True"/>
+            <parameter name="nombres" type="String" array="True"/>
+            <parameter name="stocks" type="Integer" array="True"/>
+            <parameter name="minimos" type="Integer" array="True"/>
+            <parameter name="perecedero" type="Boolean" array="True"/>
+            <parameter name="dias" type="Integer" array="True"/>
+        </parameters>
+        <body>
+            <comment text="Carga el catalogo de ejemplo; dias=dias para vencer al 2026-10-19 (solo si es perecedero)"/>
+            <assign variable="codigos[0]" expression="&quot;LAC001&quot;"/>
+            <assign variable="nombres[0]" expression="&quot;Leche entera 1L&quot;"/>
+            <assign variable="stocks[0]" expression="40"/>
+            <assign variable="minimos[0]" expression="15"/>
+            <assign variable="perecedero[0]" expression="true"/>
+            <assign variable="dias[0]" expression="4"/>
+            <assign variable="codigos[1]" expression="&quot;LAC002&quot;"/>
+            <assign variable="nombres[1]" expression="&quot;Yogurt natural 200g&quot;"/>
+            <assign variable="stocks[1]" expression="8"/>
+            <assign variable="minimos[1]" expression="10"/>
+            <assign variable="perecedero[1]" expression="true"/>
+            <assign variable="dias[1]" expression="11"/>
+            <assign variable="codigos[2]" expression="&quot;LAC003&quot;"/>
+            <assign variable="nombres[2]" expression="&quot;Queso fresco 500g&quot;"/>
+            <assign variable="stocks[2]" expression="22"/>
+            <assign variable="minimos[2]" expression="8"/>
+            <assign variable="perecedero[2]" expression="true"/>
+            <assign variable="dias[2]" expression="7"/>
+            <assign variable="codigos[3]" expression="&quot;BEB001&quot;"/>
+            <assign variable="nombres[3]" expression="&quot;Agua purificada 600ml&quot;"/>
+            <assign variable="stocks[3]" expression="120"/>
+            <assign variable="minimos[3]" expression="40"/>
+            <assign variable="perecedero[3]" expression="false"/>
+            <assign variable="dias[3]" expression="0"/>
+            <assign variable="codigos[4]" expression="&quot;BEB002&quot;"/>
+            <assign variable="nombres[4]" expression="&quot;Jugo de naranja 1L&quot;"/>
+            <assign variable="stocks[4]" expression="6"/>
+            <assign variable="minimos[4]" expression="12"/>
+            <assign variable="perecedero[4]" expression="true"/>
+            <assign variable="dias[4]" expression="119"/>
+            <assign variable="codigos[5]" expression="&quot;BEB003&quot;"/>
+            <assign variable="nombres[5]" expression="&quot;Gaseosa cola 2L&quot;"/>
+            <assign variable="stocks[5]" expression="35"/>
+            <assign variable="minimos[5]" expression="15"/>
+            <assign variable="perecedero[5]" expression="true"/>
+            <assign variable="dias[5]" expression="254"/>
+            <assign variable="codigos[6]" expression="&quot;ENL001&quot;"/>
+            <assign variable="nombres[6]" expression="&quot;At&#250;n en lata 140g&quot;"/>
+            <assign variable="stocks[6]" expression="60"/>
+            <assign variable="minimos[6]" expression="20"/>
+            <assign variable="perecedero[6]" expression="true"/>
+            <assign variable="dias[6]" expression="560"/>
+            <assign variable="codigos[7]" expression="&quot;ENL002&quot;"/>
+            <assign variable="nombres[7]" expression="&quot;Frijoles enlatados 400g&quot;"/>
+            <assign variable="stocks[7]" expression="14"/>
+            <assign variable="minimos[7]" expression="14"/>
+            <assign variable="perecedero[7]" expression="true"/>
+            <assign variable="dias[7]" expression="448"/>
+            <assign variable="codigos[8]" expression="&quot;ENL003&quot;"/>
+            <assign variable="nombres[8]" expression="&quot;Sardinas en lata 125g&quot;"/>
+            <assign variable="stocks[8]" expression="45"/>
+            <assign variable="minimos[8]" expression="15"/>
+            <assign variable="perecedero[8]" expression="true"/>
+            <assign variable="dias[8]" expression="518"/>
+            <assign variable="codigos[9]" expression="&quot;GRA001&quot;"/>
+            <assign variable="nombres[9]" expression="&quot;Arroz blanco 1kg&quot;"/>
+            <assign variable="stocks[9]" expression="80"/>
+            <assign variable="minimos[9]" expression="25"/>
+            <assign variable="perecedero[9]" expression="false"/>
+            <assign variable="dias[9]" expression="0"/>
+            <assign variable="codigos[10]" expression="&quot;GRA002&quot;"/>
+            <assign variable="nombres[10]" expression="&quot;Frijoles negros 1kg&quot;"/>
+            <assign variable="stocks[10]" expression="18"/>
+            <assign variable="minimos[10]" expression="20"/>
+            <assign variable="perecedero[10]" expression="false"/>
+            <assign variable="dias[10]" expression="0"/>
+            <assign variable="codigos[11]" expression="&quot;LIM001&quot;"/>
+            <assign variable="nombres[11]" expression="&quot;Detergente en polvo 1kg&quot;"/>
+            <assign variable="stocks[11]" expression="30"/>
+            <assign variable="minimos[11]" expression="10"/>
+            <assign variable="perecedero[11]" expression="false"/>
+            <assign variable="dias[11]" expression="0"/>
+        </body>
+    </function>
+</flowgorithm>

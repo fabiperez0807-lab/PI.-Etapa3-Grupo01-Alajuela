@@ -1,0 +1,13 @@
+codigo,nombre,categoria,stock,stock_minimo,precio_compra,precio_venta,fecha_vencimiento
+LAC001,Leche entera 1L,Lácteos,40,15,800,1100,2026-10-23
+LAC002,Yogurt natural 200g,Lácteos,8,10,500,750,2026-10-30
+LAC003,Queso fresco 500g,Lácteos,22,8,2800,3600,2026-10-26
+BEB001,Agua purificada 600ml,Bebidas,120,40,350,600,
+BEB002,Jugo de naranja 1L,Bebidas,6,12,1100,1600,2027-02-15
+BEB003,Gaseosa cola 2L,Bebidas,35,15,1200,1700,2027-06-30
+ENL001,Atún en lata 140g,Enlatados,60,20,1000,1400,2028-05-01
+ENL002,Frijoles enlatados 400g,Enlatados,14,14,900,1300,2028-01-10
+ENL003,Sardinas en lata 125g,Enlatados,45,15,700,1000,2028-03-20
+GRA001,Arroz blanco 1kg,Granos,80,25,900,1200,
+GRA002,Frijoles negros 1kg,Granos,18,20,1100,1500,
+LIM001,Detergente en polvo 1kg,Limpieza,30,10,2500,3300,
